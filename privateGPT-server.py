@@ -1,4 +1,4 @@
-from flask import Flask,jsonify, render_template, flash, redirect, url_for, Markup, request
+from flask import Flask,jsonify, request
 from flask_cors import CORS
 from dotenv import load_dotenv
 from langchain.chains import RetrievalQA
@@ -6,29 +6,11 @@ from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 from langchain.vectorstores import Chroma
 from langchain.llms import GPT4All, LlamaCpp
+import chromadb
 import os
-import glob
-from typing import List
-import requests
+import argparse
+import time
 
-from langchain.document_loaders import (
-    CSVLoader,
-    EverNoteLoader,
-    PDFMinerLoader,
-    TextLoader,
-    UnstructuredEmailLoader,
-    UnstructuredEPubLoader,
-    UnstructuredHTMLLoader,
-    UnstructuredMarkdownLoader,
-    UnstructuredODTLoader,
-    UnstructuredPowerPointLoader,
-    UnstructuredWordDocumentLoader,
-)
-
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.vectorstores import Chroma
-from langchain.embeddings import HuggingFaceEmbeddings
-from langchain.docstore.document import Document
 from constants import CHROMA_SETTINGS
 
 app = Flask(__name__)
