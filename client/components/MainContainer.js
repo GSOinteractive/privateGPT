@@ -26,13 +26,19 @@ export default function MainContainer() {
       setChat((chat) => [...chat, { isBot: false, msg: question }]);
       setQuestion('');
       try {
-        const response = await fetch('http://35.210.14.250:5000/get_answer', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
+        const response = await fetch(
+          window.location.protocol +
+            '//' +
+            window.location.hostname +
+            ':5000/get_answer',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(question),
           },
-          body: JSON.stringify(question),
-        });
+        );
 
         if (!response.ok) {
           response.text().then((text) => {
